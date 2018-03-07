@@ -32,9 +32,9 @@ public class Test {
 		Vector b1 = new Vector(bb1);
 		Vector b2 = new Vector(bb2);
 		Vector b3 = new Vector(bb3);
-		//		System.out.println("\nTo converge, it took iteration times of "+Jacobi.solver(sp, b1));
-		//		System.out.println("\nTo converge, it took iteration times of "+Jacobi.solver(sp, b2));
-		System.out.println("\nTo converge, it took iteration times of "+Jacobi.solver(sp, b3));
+		System.out.println("\nTo converge, it took iteration times of "+Jacobi.solver(sp, b1));
+//		System.out.println("\nTo converge, it took iteration times of "+Jacobi.solver(sp, b2));
+//		System.out.println("\nTo converge, it took iteration times of "+Jacobi.solver(sp, b3));
 
 		// Record the end time for time-counting this method
 		long endTime= System.nanoTime();

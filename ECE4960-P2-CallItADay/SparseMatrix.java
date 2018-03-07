@@ -45,7 +45,7 @@ public class SparseMatrix {
 		for(int i=0; i<rank+1; i++) {rowPtr.add(0);}
 	}
 
-	/**Return the product of Ax = b*/
+	/**Return the product of Matrix*Vector (int diag==1 meaning it's a diagonal matrix)*/
 	public Vector product(Vector vec) {
 		// Create data structure for containing the result vector
 		double[] r = new double[vec.len];
@@ -55,7 +55,7 @@ public class SparseMatrix {
 			for(int j=0; j < rank; j++) {
 				r[i] += retrieveElement(i, j) * vec.v[j]; 
 			}
-		}
+		}	
 		return new Vector(r);
 	}
 
