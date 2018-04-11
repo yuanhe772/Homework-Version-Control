@@ -1,0 +1,77 @@
+
+ECE4960-Project 3 Report:
+
+
+  Testing Helper Functions:
+
+
+  TASK 1: Validation for Direct Matrix Solver:
+	PASSED: Direct matrix solver's correctness test! By testing with the ill-conditioned matrice in Note4, slide 50 to see if || Ax-b || < 10^-7
+	PASSED: Direct matrix solver's correctness test! By testing with a rank-up-to-4 matrix to see if || Ax-b || < 10^-7
+
+
+  TASK 2: Parameter Extraction with Power Law(Iterative Matrix Solver) and Linear Regression(Direct Matrix Solver):
+	Linear Regression(Direct Matrix Solver):
+		Extracted [a, m] = [10.162840789232298, -0.5109970498284496], V = 1.8735714164498758
+		< STATISTICS >: Time cost = 5ms, MEM usage = 3 Mb
+	Power Law(Iterative Matrix Solver):
+		Step Size = 0.1% of parameter
+		Initial [a, m] = [20.0, -1.0]
+		Extracted [a, m] = [10.865537890245523, -0.5437612293120845], V = 1.3351421334849305, ||delta|| = 3.9154222026092836E-8, iteration # = 13
+		Convergence auto-checking:
+			Terminated by MAX_ITERATION: NO, Linear Convergence: YES, Quadratic Convergence: NO
+		< STATISTICS >: Time cost = 21ms, MEM usage = 3 Mb
+
+	< ANALYSIS >:
+		Linear Regression:
+			PROS: Predictable computational cost and performance (Time cost in (15ms, 90ms), MEM usage = 2MB, V in (0.3, 1.5))
+			CONS: although average case better than iterative solver, its best case is worse;
+		Power Law:
+			PROS: Through observation, the best case of Power Law is better than Linear regression, in both aspects of performance (smaller V) and cost (faster computation).
+			CONS: Unpredictable computational cost and performance (Time cost in (4ms, 990ms), MEM usage in (2MB, 5MB), V in (0.1, 125)), due to occasional failures in convergence caused by fluctuating measured data and fixed initial guess.
+
+
+  TASK 3: Plot S(measure):
+	Available in the Report_of_Task_3_5_7.pdf
+
+
+  TASK 4: Extract EKV's parameters with iterative solver:
+	Quasi-Newton method, with 2nd-order central-difference: f(x + h) - f(x - h) / 2h:
+		Step Size = 0.1% of parameter
+		Initial [Is, Kappa, Vth] = [9.0E-7, 0.9, 0.9]
+		Extracted [Is, kappa, Vth] = [2.068457699371618E-6, 0.5981751886140722, 0.9382194923540036], V = 2.5381491606415685E-6, ||delta|| = 7.227245738377839E-13, iteration # = 11
+		Convergence auto-checking:
+			Terminated by MAX_ITERATION: NO, Linear Convergence: YES, Quadratic Convergence: YES
+	Secant method, with 2nd-order central-difference: f(x + h) - f(x - h) / 2h:
+		Step Size = 0.1% of parameter
+		Initial [Is, Kappa, Vth]] = [2.0E-6, 0.6, 0.9]
+		Extracted [Is, kappa, Vth] = [2.0038732484002615E-6, 0.60116197452008, 0.9017429617801213], V = 2.725208508280391E-6, ||delta|| = 9.998821494658716E-13, iteration # = 1884
+		Convergence auto-checking:
+			Terminated by MAX_ITERATION: NO, Linear Convergence: YES, Quadratic Convergence: NO
+
+	< ANALYSIS >:
+		Quasi-Newton:
+			PROS: Quadratic Convergence, and more robust against far-away initial guesses;
+			CONS: complex and costly inner-loop implementation;
+		Power Law:
+			PROS: straight-forward and less costly inner-loop implementation
+			CONS: At most Linear Convergence, greedy and relatively more 'local optimal' (easily converges to an answer that's near the initialguess. Needs initial guesses very close to the 'true answer' to avoid wrong convergence).
+
+
+  TASK 5: Plot S(model)/S(measure):
+	Available in the Report_of_Task_3_5_7.pdf
+
+
+  TASK 6: Optimized Initial Guess Search:
+	Unnormalized data, Quasi-Newton:
+		Optimal initial guess [Is, Kappa, Vth] = [3.0E-6, 0.6, 1.6], V = 2.594631282193693E-6
+	Unnormalized data, Secant:
+		Optimal initial guess [Is, Kappa, Vth] = [3.0E-6, 0.5, 1.0], V = 9.437759315832478E-6
+	Normalized, Quasi-Newton:
+		Optimal initial guess [Is, Kappa, Vth] = [3.0E-6, 0.7, 1.3], V = 115.18763613806533
+	Normalized, Secant:
+		Optimal initial guess [Is, Kappa, Vth] = [3.0E-6, 0.5, 1.2], V = 191.2923199892063
+
+
+  TASK 7: Validation for Quasi-Newton method: (visualization section available in the Report_of_Task_3_5_7.pdf)
+	PASSED: Quasi-Newton's approximation validation test! By checking ||Y(model) - Y(approximate)|| < 10^-4
