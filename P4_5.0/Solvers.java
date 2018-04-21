@@ -29,7 +29,7 @@ public class Solvers {
 		else return 0;
 	}
 
-	/**Function: ODE function, f(x,t) = dx(t) / dt
+	/**Function: ODE functions, f(x,t) = dx(t) / dt
 	 * @param: double x, double t, String fxType
 	 * @return: double value*/
 	public static double f(Vector x, double t, String fType) {
@@ -46,13 +46,11 @@ public class Solvers {
 			double former = -(1/(C1*R1) + 1/(C1*R2)) * x.v[0];
 			double latter = 1/(C1*R2) * x.v[1];
 			return (former + latter + i(t*1e9)/C1);
-			//			return (x.v[0]/R1+(x.v[0]-x.v[1])/R2-i(t*1e9))/(-C1);
 		}
 		else if(fType.equals("Circuit1-2")) {
 			double former = 1/(C1*R2) * x.v[0];
 			double latter = -(1/(C2*R2) + 1/(C2*R3)) * x.v[1];
 			return (former + latter);
-			//			return ((x.v[1]-x.v[0])/R2+x.v[1]/R3)/(-C2);
 		}
 		else if(fType.equals("Circuit2-1")) {
 			return 0;
@@ -63,7 +61,7 @@ public class Solvers {
 		else return 0;
 	}
 
-	/**Function: Transient i(t) for circuit in Task 4
+	/**Function: Transient i(t)
 	 * @param: double t, unit = (ns)
 	 * @return: double value*/
 	public static double i(double t) {
@@ -80,7 +78,7 @@ public class Solvers {
 		else return 0;
 	}
 
-	/**Function: calculate the values of K for RK3, and RK4
+	/**Function: Calculate the values of K for RK3, and RK4
 	 * @param: Vector xi, double ti, double h, String fxType
 	 * @return: K[Vector], K.length = 4, where each Vector represents K1-K4, and each Vector
 	 * 			contains two elements, respectively for V1 and V2*/
@@ -107,11 +105,10 @@ public class Solvers {
 		for(int i=0; i<x.len; i++) {
 			K.get(3).v[i] = f(x.add(K.get(2), h), t + h, fType[i]);
 		}
-
 		return K;
 	}
 
-	/**Function: calculate the X(RK3) and X(RK4)
+	/**Function: Calculate x[] by RK3 and RK4
 	 * @param: Vector x_i0, double t_i0, double h, String[] fType
 	 * @return: ArrayList<Vector> X = [X(RK3), X(RK4)]*/
 	public static ArrayList<Vector> xRK3_xRK4(Vector x, double t, double h, String[] fType) {
@@ -136,8 +133,7 @@ public class Solvers {
 		return xRK3_xRK4;
 	}
 
-
-	/**Function: Calculate the RK34 with adaptive h
+	/**Function: Calculate x[] by RK34 with adaptive h
 	 * @param: Vector x_i0, double t_i0, double h, String fType[]
 	 * @return: */
 	public static double adapter(Vector x, double t, double h, String fType[], int i) {
@@ -147,11 +143,10 @@ public class Solvers {
 		double step = 0;
 		double stepLimit = h;
 
-		// Within each time-stamp
+		// Within each time-step
 		while(step < stepLimit) {
 			xRK3_xRK4 = xRK3_xRK4(x, t, h, fType);
 			r = r(xRK3_xRK4, i);
-
 			// Adapt the h
 			while(Math.abs(r-1) > Tol1 || Math.abs(r-1) < Tol2) {
 				h /= Math.pow(r, 1.0/3.0); 
@@ -160,7 +155,6 @@ public class Solvers {
 				xRK3_xRK4 = xRK3_xRK4(x, t, h, fType);
 				r = r(xRK3_xRK4, i);
 			}
-
 			// Update the x_i0
 			t += h;
 			step += h;
@@ -170,6 +164,9 @@ public class Solvers {
 		return xRK3_xRK4.get(1).v[i];
 	}
 
+	/**Function: Sum up the RK34's results of each variable and return as a Vector
+	 * @param: Vector x_i0, double t_i0, double h, String fType[]
+	 * @return: */
 	public static Vector RK34AdaptiveH(Vector x, double t, double h, String fType[]) {
 		Vector res = new Vector(x.len);
 		for(int i=0; i<x.len; i++) {
@@ -178,7 +175,7 @@ public class Solvers {
 		return res;
 	}
 
-	/**Function: Calculate x with Forward-Euler
+	/**Function: Calculate x[] by Forward-Euler
 	 * @param: Vector x, double t, double h(step length), String fType[]
 	 * @return:*/
 	public static Vector forwardEuler(Vector x, double t, double h, String fType[]) {
@@ -202,7 +199,7 @@ public class Solvers {
 	}
 
 
-	/**Function: Calculate the ||Error%||2
+	/**Function: Calculate the ||Error%||2:
 	 * 			By computing the relative error of each unknown variable, and then the 2nd-order norm
 	 * @param: Vector x, double t, String[] fType
 	 * @return: double ||Error%||2 */
