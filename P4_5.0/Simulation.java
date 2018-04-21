@@ -18,14 +18,14 @@ public class Simulation {
 	 * @param: double step-size
 	 * @return: None*/
 	public static void RK34AdaptiveCircuit1(double stepSize) {
-		/* Testing data initializing*/
+		/* Simulation data initializing*/
 		Vector x0 = new Vector(xInit);
 		Vector x1 = new Vector(x0.len);
 
-		/* Testing RK34 */
+		/* Simulate circuit 1 with RK34 */
 		FileIO.createReport("RK34Circuit1_" + (stepSize == 1e-9 ? "1ns.txt":"02ns.txt"), "");
 		for(double t=0; t<1e-7 ; t += stepSize) {
-			// Estimate next x: extract x(RK4) out of xRK3_xRK4
+			// Estimate next x
 			x1 = Solvers.RK34AdaptiveH(x0, t, stepSize, fTypeCircuit1);
 			// Update the initial x
 			x0.v = x1.v.clone();
@@ -37,14 +37,14 @@ public class Simulation {
 	 * @param: double step-size
 	 * @return: None*/
 	public static void forwardEulerCircuit1(double stepSize) {
-		/* Testing data initializing*/
+		/* Simulation data initializing*/
 		Vector x0 = new Vector(xInit);
 		Vector x1 = new Vector(x0.len);
 
-		/* Testing RK34 */
+		/* Simulate circuit 1 with forward Euler */
 		FileIO.createReport("forwardEulerCircuit1_" + (stepSize == 1e-9 ? "1ns.txt":"02ns.txt"), "");
 		for(double t=0; t<1e-7 ; t += stepSize) {
-			// Estimate next x: extract x(RK4) out of xRK3_xRK4
+			// Estimate next x
 			x1 = Solvers.forwardEuler(x0, t, stepSize, fTypeCircuit1);
 			// Update the initial x
 			x0.v = x1.v.clone();
@@ -56,11 +56,11 @@ public class Simulation {
 	 * @param: double step size
 	 * @return: None*/
 	public static void RK4Circuit1(double stepSize) {
-		/* Testing data initializing*/
+		/* Simulation data initializing*/
 		Vector x0 = new Vector(xInit);
 		Vector x1 = new Vector(x0.len);
 
-		/* Testing RK34 */
+		/* Simulate circuit 1 with RK34 */
 		FileIO.createReport("RK4Circuit1_" + (stepSize == 1e-9 ? "1ns.txt":"02ns.txt"), "");
 		for(double t=0; t<1e-7 ; t += stepSize) {
 			// Estimate next x: extract x(RK4) out of xRK3_xRK4
