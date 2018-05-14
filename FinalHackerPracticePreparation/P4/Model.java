@@ -24,8 +24,9 @@ public class Model {
 	/**Function: ODE functions: f(x,t) = dx(t) / dt
 	 * 			 Functions are chosen according to the input fType
 	 * @param: double x, double t, String fxType
-	 * @return: double value*/
-	public static double f(Vector x, double t, String fType) {
+	 * @return: double value
+	 * @throws Exception */
+	public static double f(Vector x, double t, String fType) throws Exception {
 		// The constants
 		double C1 = 1e-12;
 		double C2 = 1e-12;
@@ -58,16 +59,16 @@ public class Model {
 			double latter = (Vdd - x.v[1])/ (RL*C2);
 			return (former + latter);
 		}
-//		else if(fType.equals("Circuit3-1")) {
-////			double former
-//		}
-//		else if(fType.equals("Circuit3-2")) {
-//			
-//		}
-//		else if(fType.equals("Circuit3-3")) {
-//			
-//		}
-		else return 0;
+		else if(fType.equals("Circuit3-1")) {
+			return 0;
+		}
+		else if(fType.equals("Circuit3-2")) {
+			return 0;
+		}
+		else if(fType.equals("Circuit3-3")) {
+			return 0;
+		}
+		else throw new Exception("Please indicate appropriate ODE function types!");
 	}
 	
 	

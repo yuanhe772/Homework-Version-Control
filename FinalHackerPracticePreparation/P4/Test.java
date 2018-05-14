@@ -12,8 +12,9 @@ public class Test {
 	/**Function: Validate ODE solvers, using the example in class
 	 * 			Including RK34 with adaption, RK4, and Forward-Euler solver
 	 * @param: None
-	 * @return: None*/
-	public static void validateODESolvers(String solverType) {
+	 * @return: None
+	 * @throws Exception */
+	public static void validateODESolvers(String solverType) throws Exception {
 		/* Testing data initializing*/
 		double xx0[] = {2};
 		Vector x0 = new Vector(xx0);
@@ -22,6 +23,7 @@ public class Test {
 		Vector x1 = new Vector(x0.len);
 
 		/* Creating log files for testing ODE solvers */
+		/* Testing ODE solvers with the 1-d example in previous Hacker Practice*/
 		if(solverType.equals("RK34")) 
 			FileIO.createReport("RK34Test.txt", "Result" + "\t\t\t\t" + "Error"+"\n");
 		else if(solverType.equals("RK4")) 

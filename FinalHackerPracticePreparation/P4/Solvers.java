@@ -42,16 +42,16 @@ public class Solvers {
 
 			// Update initial x
 			x0.v = x1.v.clone();
-			System.out.println(x1.v[0] + "\t" + x1.v[1]+"\n");
-			//			FileIO.output(x1.v[0] + "\t" + x1.v[1]+"\n");
+			System.out.println(x1.v[0] + "\t" + x1.v[1]);
 		}
 	}
 
 	/**Function: Calculate the values of K for RK3, and RK4
 	 * @param: Vector xi, double ti, double h, String fxType
 	 * @return: ArrayList<Vector> K = [K1, K2, K3, K4], where each K
-	 * 			contains two elements, respectively for V1 and V2*/
-	public static ArrayList<Vector> K(Vector x, double t, double h, String[] fType) {
+	 * 			contains two elements, respectively for V1 and V2
+	 * @throws Exception */
+	public static ArrayList<Vector> K(Vector x, double t, double h, String[] fType) throws Exception {
 		ArrayList<Vector> K = new ArrayList<Vector>();
 		K.add(new Vector(x.len));
 		K.add(new Vector(x.len));
@@ -81,8 +81,9 @@ public class Solvers {
 	 * 			if you want the result of method RK3, choose the first element of return value
 	 * 			if you want the result of method RK4, choose the second element of return value
 	 * @param: Vector x, double t, double h(step length), String[] fType
-	 * @return: ArrayList<Vector> X = [X(RK3), X(RK4)]*/
-	public static ArrayList<Vector> xRK3_xRK4(Vector x, double t, double h, String[] fType) {
+	 * @return: ArrayList<Vector> X = [X(RK3), X(RK4)]
+	 * @throws Exception */
+	public static ArrayList<Vector> xRK3_xRK4(Vector x, double t, double h, String[] fType) throws Exception {
 		ArrayList<Vector> K = K(x, t, h, fType);
 		Vector K1 = K.get(0);
 		Vector K2 = K.get(1);
@@ -106,8 +107,9 @@ public class Solvers {
 
 	/**Function: Calculate x[] by RK34 with adaptive h
 	 * @param: Vector x, double t, double h(step length), String fType[]
-	 * @return: */
-	public static Vector RK34AdaptiveH(Vector x, double t, double h, String fType[]) {
+	 * @return: 
+	 * @throws Exception */
+	public static Vector RK34AdaptiveH(Vector x, double t, double h, String fType[]) throws Exception {
 		// Initialize the method data structures
 		ArrayList<Vector> xRK3_xRK4 = new ArrayList<Vector>(x.len);
 		double r = 0;
@@ -148,8 +150,9 @@ public class Solvers {
 
 	/**Function: Calculate x[] by Forward-Euler
 	 * @param: Vector x, double t, double h(step length), String fType[]
-	 * @return:*/
-	public static Vector forwardEuler(Vector x, double t, double h, String fType[]) {
+	 * @return:
+	 * @throws Exception */
+	public static Vector forwardEuler(Vector x, double t, double h, String fType[]) throws Exception {
 		Vector f = new Vector(x.len);
 		for(int i=0; i<x.len; i++) {
 			f.v[i] = Model.f(x, t, fType[i]);
