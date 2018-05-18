@@ -9,8 +9,9 @@
 public class Jacobi {
 
 	/**Funtion: Implement the Jacobi Iterative solver
-	 * Parameter: SparseMatrix A, Vector b
-	 * Return: int IteratedNum*/
+	 * @param: SparseMatrix A, Vector b
+	 * @return: int IteratedNum*/
+	@SuppressWarnings("unused")
 	public static Vector solver(SparseMatrix A, Vector b) {
 		// Decompose matrix sp into the form of L, D, U
 		SparseMatrix L = new SparseMatrix(A.rank);
@@ -76,8 +77,8 @@ public class Jacobi {
 
 	// Helper functions:
 	/**Function: Calculate the second norm of (delta / v), for convergence evaluation of (delta X / X) 
-	 * Parameter: Vector u, Vector v
-	 * Return: double error*/
+	 * @param: Vector u, Vector v
+	 * @return: double error*/
 	public static double convNorm(Vector u, Vector v) {
 		// Accumulating the norms of ||u - v|| and v
 		double normDiff = 0;
@@ -92,8 +93,8 @@ public class Jacobi {
 	}
 
 	/**Function: The normalized residual norm for X, ||Ax-b|| / ||b|| 
-	 * Parameter: SparseMatrix A, Vector x, Vector b
-	 * Return: double error (of ||Ax-b|| / ||b|| )*/
+	 * @parameter: SparseMatrix A, Vector x, Vector b
+	 * @return: double error (of ||Ax-b|| / ||b|| )*/
 	public static double normalNorm(SparseMatrix A, Vector x, Vector b) {
 		// A*x-b:
 		Vector err = (A.productVec(x)).add(b,-1);
