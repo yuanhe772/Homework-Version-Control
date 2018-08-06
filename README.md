@@ -1,2 +1,2 @@
 # Homework-Version-Control
-For personal use only
+For personal use only ;)
